@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1457341048 source:d:\learning\university\Алгоритмизация\lr1\lr1\main.cpp
+	<cstdlib>
+	<iostream>
+	<vector>
+	<string>
+	<ctime>
+	"include/Item.h"
+	"include/PriorityQueue.h"
+
+1457280716 d:\learning\university\Алгоритмизация\lr1\lr1\include\item.h
+	<string>
+
+1457341048 d:\learning\university\Алгоритмизация\lr1\lr1\include\priorityqueue.h
+	<stdexcept>
+	<iostream>
+
