@@ -1,35 +1,13 @@
-/**
-    Разработать подпрограммы работы с приоритетной очередью.
-    Постановка запросов в очередь выполняется по приоритету,
-    снятие - подряд из младших адресов (начало очереди).
-    Очередь организована на массиве с циклическим заполнением и списка.
-    Приоритет: мах значения числового параметра, при совпадении параметров - FIFO.
-**/
-
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <ctime>
 
-#include "include/Item.h"
 #include "include/PriorityQueue.h"
 #include "include/PriorityQueueArr.h"
 
 using namespace std;
-
-/**
-    TODO:
-    1. Структуры.
-
-    Отчет:
-    Постановка задачи.
-    Краткие теор. сведенья: термины.
-    Исходный код
-    Результат. Оценка времени
-    Вывод
-
-    Генерить приоритет, значения.
-**/
 
 static const char alphanum[] =
 "0123456789"
@@ -46,51 +24,92 @@ char genRandom()
 
 int main()
 {
-    cout << "Write numbers of rows: ";
     int n;
+    cout << "Write numbers of rows: ";
     cin >> n;
 
-    PriorityQueue<Item> queue;
+    PriorityQueue<int> queue;
     PriorityQueueArr::Queue queueArr;
-
     PriorityQueueArr::creat(&queueArr);
 
     cout << "Generated: " << endl;
     srand(time(NULL));
-    int priority;
-    int val;
+    int val, priority;
     std::string str;
-    cout << setw(6) << "Name" << setw(7) << "Value" << setw(10) << "Priority" << endl;
+    cout << setw(7) << "Value" << setw(10) << "Priority" << endl;
     for ( auto i = 0; i < n; i++ ) {
         val = i;
         str += genRandom();
-
         priority = 1 + rand() % 10;
-        Item item(str, val);
 
         PriorityQueueArr::push(&queueArr, priority, val);
 
-        cout << setw(6) << item.getName() << setw(7) << item.getValue() << setw(10)
-                << priority << endl;
+        queue.push(priority, val);
 
-        queue.push(priority, item);
+        cout << setw(7) << val << setw(10) << priority << endl;
     }
 
     cout << endl << "In queue with array:" << endl;
-    int value;
-    cout << setw(13) << "Value" << endl;
+    cout << setw(7) << "Value" << endl;
     while ( !PriorityQueueArr::isEmpty(&queueArr) ) {
-        value = PriorityQueueArr::pop(&queueArr);
-        cout << setw(13) << value << endl;
+        val = PriorityQueueArr::pop(&queueArr);
+        cout << setw(7) << val << endl;
     }
 
     cout << endl << "In queue with list:" << endl;
-    Item item;
-    cout << setw(6) << "Name" << setw(7) << "Value" << endl;
+    cout << setw(7) << "Value" << endl;
     while ( !queue.isEmpty() ) {
-        item = queue.shift();
-        cout << setw(6) << item.getName() << setw(7) << item.getValue() << endl;
+        val = queue.shift();
+        cout << setw(7) << val << endl;
     }
 
+/** Work with array **/
+    PriorityQueueArr::Queue queueArr2;
+    PriorityQueueArr::creat(&queueArr2);
+
+    clock_t timeBegin, timeEnd;
+    double delta;
+    timeBegin = clock();
+    for ( int i = 0; i < 100000; i++ ) {
+        val = i;
+        str += genRandom();
+        priority = 1 + rand() % 10;
+
+        PriorityQueueArr::push(&queueArr2, priority, val);
+    }
+    timeEnd = clock();
+    delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
+    cout << endl << "Enqueue into array: " << delta << endl;
+
+    timeBegin = clock();
+    while ( !PriorityQueueArr::isEmpty(&queueArr2) ) {
+        val = PriorityQueueArr::pop(&queueArr2);
+    }
+    timeEnd = clock();
+    delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
+    cout << "Dequeue into array: " << delta << endl;
+
+/** Work with list **/
+    PriorityQueue<int> queue2;
+
+    timeBegin = clock();
+    for ( int i = 0; i < 100000; i++ ) {
+        val = i;
+        str += genRandom();
+        priority = 1 + rand() % 10;
+
+        queue2.push(priority, val);
+    }
+    timeEnd = clock();
+    delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
+    cout << endl << "Enqueue into list: " << delta << endl;
+
+    timeBegin = clock();
+    while ( !queue2.isEmpty() ) {
+        val = queue2.shift();
+    }
+    timeEnd = clock();
+    delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
+    cout << "Dequeue into list: " << delta << endl;
     return 0;
 }

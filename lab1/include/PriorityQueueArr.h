@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace PriorityQueueArr {
-    const int n = 8;
+    const int n = 100002;
     struct Queue {
         int data[n];
         int priority[n] = {-1};
