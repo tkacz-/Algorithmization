@@ -32,7 +32,6 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/Item.h" />
 		<Unit filename="include/PriorityQueue.h" />
 		<Unit filename="include/PriorityQueueArr.h" />
 		<Unit filename="main.cpp" />
