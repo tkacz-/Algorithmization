@@ -15,6 +15,7 @@ private:
         Node* next;
     public:
         Node(const int& key, const Item& i): item(i), next(0), priority(key) {}
+        Node() {}
         Item getItem() const {
             return item;
         }
@@ -54,41 +55,37 @@ private:
             return ! pHead;
         }
 
-        void push(const int& key, const Item& item) {
-            Node* pNode = new Node(key, item);
+        void push (const int& key, const Item& item) {
+            Node *pNode = new Node(key, item);
 
-            if ( !pHead ) {
-                pHead = pNode;
-            }
+            int i = 0;                      /** flag - insert the item between items **/
+            if ( isEmpty() )
+                pHead = pTail = pNode;
             else {
-                Node* cell = pHead;
-                Node* next_cell = cell->getNext();
-                while (next_cell != nullptr && next_cell->getPriority() >= key) {
-                    cell = next_cell;
-                    next_cell = next_cell->getNext();
-                }
+                Node *next_cell = pHead;    /** point to next item **/
+                Node *cell = pHead;         /** point to previous item **/
 
-                if ( next_cell == nullptr ) {
-                    if ( cell->getPriority() >= key ) {
-                        cell->setNext(pNode);
-                        pNode->setNext(next_cell);
-                    } else {
-                        pNode->setNext(cell);
-                        pHead = pNode;
-                    }
-                } else {
-                    if ( cell == pHead ) {
-                        if ( cell->getPriority() >= key ) {
-                            cell->setNext(pNode);
+                while ( next_cell != nullptr ) {
+                    if ( i == 1 ) {
+                        if ( key >= next_cell->getPriority() ) {
                             pNode->setNext(next_cell);
-                        } else {
-                            pNode->setNext(cell);
-                            pHead = pNode;
+                            cell->setNext(pNode);
+                            return;
                         }
+                        cell = cell->getNext();
                     } else {
-                        pNode->setNext(next_cell);
-                        cell->setNext(pNode);
+                        if ( key >= next_cell->getPriority() ) {
+                            pNode->setNext(next_cell);
+                            pHead=pNode;
+                            return;
+                       }
                     }
+                    next_cell = next_cell->getNext();
+                    i = 1;
+                }
+                if ( next_cell == nullptr ) {
+                    pTail->setNext(pNode);
+                    pTail = pNode;
                 }
             }
         }

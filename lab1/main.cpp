@@ -1,3 +1,11 @@
+/**
+    –азработать подпрограммы работы с приоритетной очередью.
+    ѕостановка запросов в очередь выполн€етс€ по приоритету,
+    сн€тие - подр€д из младших адресов (начало очереди).
+    ќчередь организована на массиве с циклическим заполнением и списка.
+    ѕриоритет: мах значени€ числового параметра, при совпадении параметров - FIFO.
+**/
+
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -5,6 +13,7 @@
 
 #include "include/Item.h"
 #include "include/PriorityQueue.h"
+#include "include/PriorityQueueArr.h"
 
 using namespace std;
 
@@ -42,6 +51,9 @@ int main()
     cin >> n;
 
     PriorityQueue<Item> queue;
+    PriorityQueueArr::Queue queueArr;
+
+    PriorityQueueArr::creat(&queueArr);
 
     cout << "Generated: " << endl;
     srand(time(NULL));
@@ -50,11 +62,13 @@ int main()
     std::string str;
     cout << setw(6) << "Name" << setw(7) << "Value" << setw(10) << "Priority" << endl;
     for ( auto i = 0; i < n; i++ ) {
-        val = 1 + rand() % 10;
+        val = i;
         str += genRandom();
 
         priority = 1 + rand() % 10;
         Item item(str, val);
+
+        PriorityQueueArr::push(&queueArr, priority, val);
 
         cout << setw(6) << item.getName() << setw(7) << item.getValue() << setw(10)
                 << priority << endl;
@@ -62,7 +76,15 @@ int main()
         queue.push(priority, item);
     }
 
-    cout << endl << "In queue:" << endl;
+    cout << endl << "In queue with array:" << endl;
+    int value;
+    cout << setw(13) << "Value" << endl;
+    while ( !PriorityQueueArr::isEmpty(&queueArr) ) {
+        value = PriorityQueueArr::pop(&queueArr);
+        cout << setw(13) << value << endl;
+    }
+
+    cout << endl << "In queue with list:" << endl;
     Item item;
     cout << setw(6) << "Name" << setw(7) << "Value" << endl;
     while ( !queue.isEmpty() ) {
