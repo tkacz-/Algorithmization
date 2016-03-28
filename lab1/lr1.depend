@@ -15,22 +15,25 @@
 	<stdexcept>
 	<iostream>
 
-1458474970 source:d:\github\algorithmization\lab1\main.cpp
+1459149707 source:d:\github\algorithmization\lab1\main.cpp
 	<cstdlib>
 	<iostream>
 	<iomanip>
 	<string>
 	<ctime>
-	"include/PriorityQueue.h"
 	"include/PriorityQueueArr.h"
+	"include/PriorityQue.h"
 
 1457280716 d:\github\algorithmization\lab1\include\item.h
 	<string>
 
-1458467992 d:\github\algorithmization\lab1\include\priorityqueue.h
+1458725767 d:\github\algorithmization\lab1\include\priorityqueue.h
 	<stdexcept>
 	<iostream>
 
-1458474970 d:\github\algorithmization\lab1\include\priorityqueuearr.h
+1458553515 d:\github\algorithmization\lab1\include\priorityqueuearr.h
+	<iostream>
+
+1459149846 d:\github\algorithmization\lab1\include\priorityque.h
 	<iostream>
 

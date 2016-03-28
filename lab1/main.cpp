@@ -4,8 +4,8 @@
 #include <string>
 #include <ctime>
 
-#include "include/PriorityQueue.h"
 #include "include/PriorityQueueArr.h"
+#include "include/PriorityQue.h"
 
 using namespace std;
 
@@ -28,9 +28,10 @@ int main()
     cout << "Write numbers of rows: ";
     cin >> n;
 
-    PriorityQueue<int> queue;
+    PriorityQue::Queue queue;
+    PriorityQue::create(&queue);
     PriorityQueueArr::Queue queueArr;
-    PriorityQueueArr::creat(&queueArr);
+    PriorityQueueArr::create(&queueArr);
 
     cout << "Generated: " << endl;
     srand(time(NULL));
@@ -43,8 +44,7 @@ int main()
         priority = 1 + rand() % 10;
 
         PriorityQueueArr::push(&queueArr, priority, val);
-
-        queue.push(priority, val);
+        PriorityQue::push(priority, val, &queue);
 
         cout << setw(7) << val << setw(10) << priority << endl;
     }
@@ -58,17 +58,41 @@ int main()
 
     cout << endl << "In queue with list:" << endl;
     cout << setw(7) << "Value" << endl;
-    while ( !queue.isEmpty() ) {
-        val = queue.shift();
+    while ( !PriorityQue::isEmpty(&queue) ) {
+        val = PriorityQue::shift(&queue);
         cout << setw(7) << val << endl;
     }
 
-/** Work with array **/
-    PriorityQueueArr::Queue queueArr2;
-    PriorityQueueArr::creat(&queueArr2);
+/** Work with list **/
+    PriorityQue::Queue queueList;
+    PriorityQue::create(&queueList);
 
     clock_t timeBegin, timeEnd;
     double delta;
+    timeBegin = clock();
+    for ( int i = 0; i < 100000; i++ ) {
+        val = i;
+        str += genRandom();
+        priority = 1 + rand() % 10;
+
+        PriorityQue::push(priority, val, &queueList);
+    }
+    timeEnd = clock();
+    delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
+    cout << endl << "Enqueue into list: " << delta << endl;
+
+    timeBegin = clock();
+    while ( !PriorityQue::isEmpty(&queueList) ) {
+        val = PriorityQue::shift(&queueList);
+    }
+    timeEnd = clock();
+    delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
+    cout << "Dequeue into list: " << delta << endl;
+
+/** Work with array **/
+    PriorityQueueArr::Queue queueArr2;
+    PriorityQueueArr::create(&queueArr2);
+
     timeBegin = clock();
     for ( int i = 0; i < 100000; i++ ) {
         val = i;
@@ -88,28 +112,27 @@ int main()
     timeEnd = clock();
     delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
     cout << "Dequeue into array: " << delta << endl;
+    return 0;
+}
 
-/** Work with list **/
-    PriorityQueue<int> queue2;
+/*
+    PriorityQue::Queue queueList;
+    PriorityQue::create(&queueList);
 
-    timeBegin = clock();
-    for ( int i = 0; i < 100000; i++ ) {
+    cout << setw(7) << "Value" << setw(10) << "Priority" << endl;
+    for ( int i = 0; i < n; i++ ) {
         val = i;
         str += genRandom();
         priority = 1 + rand() % 10;
 
-        queue2.push(priority, val);
+        PriorityQue::push(priority, val, &queueList);
+        cout << setw(7) << val << setw(10) << priority << endl;
     }
-    timeEnd = clock();
-    delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
-    cout << endl << "Enqueue into list: " << delta << endl;
 
-    timeBegin = clock();
-    while ( !queue2.isEmpty() ) {
-        val = queue2.shift();
+    cout << endl << "In queue with LIST:" << endl;
+    cout << setw(7) << "Value" << endl;
+    while ( !PriorityQue::isEmpty(&queueList) ) {
+        val = PriorityQue::shift(&queueList);
+        cout << setw(7) << val << endl;
     }
-    timeEnd = clock();
-    delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
-    cout << "Dequeue into list: " << delta << endl;
-    return 0;
-}
+*/

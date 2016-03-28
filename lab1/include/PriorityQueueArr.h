@@ -11,7 +11,7 @@ namespace PriorityQueueArr {
         int head, tail;
     };
 
-    void creat(Queue *q) {
+    void create(Queue *q) {
         q->head = q->tail = 1;
     }
 
