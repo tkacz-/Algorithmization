@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1459588354 source:/home/andrei/work/github/Algorithmization/lab2/main.cpp
+	<iostream>
+	<iomanip>
+	<cstdlib>
+	"include/BinaryTree.h"
+
+1459588512 /home/andrei/work/github/Algorithmization/lab2/include/BinaryTree.h
+	<iostream>
+
