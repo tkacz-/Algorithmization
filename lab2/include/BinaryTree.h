@@ -3,47 +3,121 @@
 
 #include <iostream>
 
+
+
 namespace BinaryTree {
-    struct node {
+    struct Node {
         int data;
-        node* l;
-        node* r;
+        Node* left;
+        Node* right;
     };
 
-    void push( int data, node **tree ) {
-        if ( *tree == nullptr ) {
-            ( *tree ) = new node;
-            ( *tree )->data = data;
-            ( *tree )->l = ( *tree )->r = nullptr;
-            return;
-        } else {
-            if ( data > ( *tree )->data )
-                push( data, &( ( *tree )->r ) );
+    struct Stack {
+        Stack() {
+            count = 0;
+        }
+
+        int isEmpty() {
+            if ( count == 0 )
+                return 1;
             else
-                push( data, &( ( *tree )->l ) );
+                if ( count == n )
+                    return -1;
+                else
+                    return 0;
+        }
+
+        void push( Node* data ) {
+            a[count] = data;
+            count++;
+        }
+
+        Node* pop() {
+            Node* res = a[count - 1];
+            count--;
+            return res;
+        }
+
+    private:
+        static const int n = 40;
+        Node* a[n];
+        int count = 0;
+    };
+
+    void clean( Node **root ) {
+        if ( *root ) {
+            clean( &( ( *root )->left ) );
+            clean( &( ( *root )->right ) );
+            delete *root;
         }
     }
 
-    void directBypass ( node* tree ) {
-
-    }
-
-    namespace Recursion {
-        void directBypass( node* tree ) {
+    void preOrderTraversal( Node* tree ) {
+        Stack stack;
+        while ( stack.isEmpty() != 1 || tree != nullptr ) {
             if ( tree != nullptr ) {
                 std::cout << std::setw(7) << tree->data << std::endl;
-                Recursion::directBypass( tree->l );
-                Recursion::directBypass( tree->r );
+                if ( tree->right ) {
+                    stack.push( tree->right );
+                }
+                tree = tree->left;
+            } else {
+                tree = stack.pop();
             }
         }
+    }
 
-        void search( int data, node* tree, int &count ) {
+    int search( int data,  Node* tree ) {
+        Stack stack;
+
+        int count = 0;
+        while ( stack.isEmpty() != 1 || tree != nullptr ) {
             if ( tree != nullptr ) {
                 count++;
                 if ( tree->data == data )
                     std::cout << "Found " << data << " with step " << count - 1 << std::endl;
-                Recursion::search( data, tree->l, count );
-                Recursion::search( data, tree->r, count );
+                if ( tree->right ) {
+                    stack.push( tree->right );
+                }
+                tree = tree->left;
+            } else {
+                tree = stack.pop();
+            }
+        }
+    }
+
+    void push( int data, Node **root ) {
+        if ( *root == nullptr ) {
+            ( *root ) = new Node;
+            ( *root )->data = data;
+            ( *root )->left = ( *root )->right = nullptr;
+            return;
+        } else {
+            if ( data > ( *root )->data )
+                push( data, &( ( *root )->right ) );
+            else
+                push( data, &( ( *root )->left ) );
+        }
+    }
+
+    namespace Recursion {
+        void preOrderTraversal( Node* tree ) {
+            if ( tree != nullptr ) {
+                std::cout << std::setw(7) << tree->data << std::endl;
+                Recursion::preOrderTraversal( tree->left );
+                Recursion::preOrderTraversal( tree->right );
+            }
+        }
+
+        void search( int data, Node* tree, int &count ) {
+            if ( tree != nullptr ) {
+                count++;
+                if ( tree->data == data ) {
+                    std::cout << "Found " << data << " with step " << count - 1 << std::endl;
+                    return;
+                }
+                Recursion::search( data, tree->left, count );
+                Recursion::search( data, tree->right, count );
             }
         }
     }

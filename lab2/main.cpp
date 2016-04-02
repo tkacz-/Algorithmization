@@ -13,7 +13,7 @@ int main()
     cout << "Write number of elements = ";
     cin >> n;
 
-    node* tree = nullptr;
+    Node* tree = nullptr;
     int value;
     srand( time(NULL) );
     cout << setw(7) << "Value:" << endl;
@@ -24,11 +24,16 @@ int main()
     }
 
     cout << endl << "Binary Tree:" << endl;
-    Recursion::directBypass( tree );
+    Recursion::preOrderTraversal( tree );
+
+    cout << endl << "Stack:" << endl;
+    preOrderTraversal( tree );
 
     cout << endl << "Write elem for searching: ";
     cin >> value;
     int count = 0;
-    Recursion::search( value, tree, count );
+    search( value, tree );
+
+    clean( &tree );
     return 0;
 }
