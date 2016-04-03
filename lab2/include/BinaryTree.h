@@ -118,8 +118,10 @@ namespace BinaryTree {
                     count--;
                     return;
                 }
-                Recursion::search( data, tree->left, count );
-                Recursion::search( data, tree->right, count );
+                if ( tree->left != nullptr )
+                    Recursion::search( data, tree->left, count );
+                if ( tree->right != nullptr )
+                    Recursion::search( data, tree->right, count );
             }
         }
     }
