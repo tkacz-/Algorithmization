@@ -1,6 +1,8 @@
 #ifndef HASHMAP_H
 #define HASHMAP_H
 
+#include <iostream>
+#include <iomanip>
 #include <string>
 
 const int TABLE_SIZE = 27;
@@ -42,15 +44,38 @@ public:
         }
     }
 
-    T get( int key ) {
+    T find( int key, T value ) {
+        int hashCode = hash( key );
+        bool isFound = false;
+        Node* temp = table[hashCode];
+        while ( temp != nullptr && !isFound ) {
+            if ( temp->getValue() == value) {
+                isFound = true;
+                break;
+            }
+            temp = temp->getNext();
+        }
+        if ( isFound )
+            return temp->getValue();
+        else
+            return "Not found";
+    }
+
+    void show( int key ) {
         int hashCode = hash( key );
         while ( table[hashCode] != nullptr && table[hashCode]->getKey() != key ) {
             hashCode = hash( key + 1 );
         }
+        std::cout << std::setw(10);
         if ( table[hashCode] == nullptr ) {
-            return "Not found";
+            std::cout << "" << std::endl;
         } else {
-            return table[hashCode]->getValue();
+            Node* temp = table[hashCode];
+            while ( temp != nullptr ) {
+                std::cout << temp->getValue() << ", ";
+                temp = temp->getNext();
+            }
+            std::cout << std::endl;
         }
     }
 private:
@@ -63,7 +88,7 @@ private:
         Node(const int& key, const T& value):
             key_(key),
             value_(value),
-            next_(0)
+            next_(nullptr)
         {}
         Node() {}
         T getValue() const {
