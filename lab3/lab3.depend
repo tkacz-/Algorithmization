@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1459655073 source:/home/andrei/work/github/Algorithmization/lab3/main.cpp
+	<iostream>
+	<iomanip>
+	<cstdlib>
+	<string>
+	"HashMap.h"
+
+1459651698 /home/andrei/work/github/Algorithmization/lab3/include/Item.h
+	<string>
+
+1459654974 /home/andrei/work/github/Algorithmization/lab3/include/HashMap.h
+	<string>
+
+1459651466 source:/home/andrei/work/github/Algorithmization/lab3/src/HashMap.cpp
+
+1459650904 source:/home/andrei/work/github/Algorithmization/lab3/src/Item.cpp
+
