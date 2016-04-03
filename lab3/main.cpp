@@ -1,3 +1,10 @@
+/*
+ * Searching elements in open addressing hash map
+ * and in array.
+ * How long does it take to find element
+ * in hash map and array ?
+*/
+
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -47,17 +54,9 @@ int main()
             << setw(10) << "Value" << endl;
     for ( int i = 0; i < 27; i++ ) {
         cout << setw(7) << i;
+
         hashMap.show( i );
     }
-
-    cout << "For searching:" << endl;
-    cout << "Value: ";
-    cin >> str;
-    cout << "Key: ";
-    cin >> key;
-    str = hashMap.find(key, str);
-    cout << "Founded: " << str << endl;
-
 
     HashMap<string> hashMap1;
     string arr[m];
@@ -80,7 +79,7 @@ int main()
     str = hashMap.find( index , elem );
     timeEnd = clock();
     delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
-    cout << endl << "Founded into hash table: " << delta << endl;
+    cout << endl << "Time for searching in hash table: " << delta << endl;
 
     timeBegin = clock();
     for ( int i = 0; i < m; i++ ) {
@@ -89,7 +88,7 @@ int main()
     }
     timeEnd = clock();
     delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
-    cout << endl << "Founded into array: " << delta << endl;
+    cout << endl << "Time for searching in array: " << delta << endl;
 
     return 0;
 }

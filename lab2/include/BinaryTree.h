@@ -39,7 +39,7 @@ namespace BinaryTree {
         }
 
     private:
-        static const int n = 40;
+        static const int n = 10000;
         Node* a[n];
         int count = 0;
     };
@@ -75,7 +75,7 @@ namespace BinaryTree {
             if ( tree != nullptr ) {
                 count++;
                 if ( tree->data == data )
-                    std::cout << "Found " << data << " with step " << count - 1 << std::endl;
+                    return count - 1;
                 if ( tree->right ) {
                     stack.push( tree->right );
                 }
@@ -84,6 +84,8 @@ namespace BinaryTree {
                 tree = stack.pop();
             }
         }
+
+        return 0;
     }
 
     void push( int data, Node **root ) {
@@ -113,7 +115,7 @@ namespace BinaryTree {
             if ( tree != nullptr ) {
                 count++;
                 if ( tree->data == data ) {
-                    std::cout << "Found " << data << " with step " << count - 1 << std::endl;
+                    count--;
                     return;
                 }
                 Recursion::search( data, tree->left, count );

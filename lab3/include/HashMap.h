@@ -37,8 +37,7 @@ public:
 
         Node *temp = new Node(key, value);
         if ( table[hashCode] != nullptr ) {
-            temp->setNext(table[hashCode]);
-            table[hashCode] = temp;
+            table[hashCode]->setNext(temp);
         } else {
             table[hashCode] = temp;
         }
@@ -58,7 +57,7 @@ public:
         if ( isFound )
             return temp->getValue();
         else
-            return "Not found";
+            return "Not Found!";
     }
 
     void show( int key ) {

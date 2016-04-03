@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1459613075 source:/home/andrei/work/github/Algorithmization/lab2/main.cpp
+1459695934 source:/home/andrei/work/github/Algorithmization/lab2/main.cpp
 	<iostream>
 	<iomanip>
 	<cstdlib>
+	<ctime>
 	"include/BinaryTree.h"
 
-1459613136 /home/andrei/work/github/Algorithmization/lab2/include/BinaryTree.h
+1459698993 /home/andrei/work/github/Algorithmization/lab2/include/BinaryTree.h
 	<iostream>
 

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1459661480 source:/home/andrei/work/github/Algorithmization/lab3/main.cpp
+1459661747 source:/home/andrei/work/github/Algorithmization/lab3/main.cpp
 	<iostream>
 	<iomanip>
 	<string>
@@ -10,7 +10,7 @@
 1459651698 /home/andrei/work/github/Algorithmization/lab3/include/Item.h
 	<string>
 
-1459661557 /home/andrei/work/github/Algorithmization/lab3/include/HashMap.h
+1459691545 /home/andrei/work/github/Algorithmization/lab3/include/HashMap.h
 	<iostream>
 	<iomanip>
 	<string>
