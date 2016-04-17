@@ -37,3 +37,18 @@
 1459149846 d:\github\algorithmization\lab1\include\priorityque.h
 	<iostream>
 
+1460913263 source:h:\github\algorithmization\lab1\main.cpp
+	<cstdlib>
+	<iostream>
+	<iomanip>
+	<string>
+	<ctime>
+	"include/PriorityQueueArr.h"
+	"include/PriorityQue.h"
+
+1460913864 h:\github\algorithmization\lab1\include\priorityqueuearr.h
+	<iostream>
+
+1460913864 h:\github\algorithmization\lab1\include\priorityque.h
+	<iostream>
+

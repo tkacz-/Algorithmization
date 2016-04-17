@@ -37,7 +37,7 @@ namespace PriorityQueueArr {
 
                 while ( next_cell != q->tail ) {
                     if ( i == 1 ) {
-                        if ( key >= q->priority[next_cell] ) {
+                        if ( key > q->priority[next_cell] ) {
                             for ( int j = ( q->tail % ( n - 1 ) ) + 1; j > next_cell; j-- ) {
                                 q->data[j] = q->data[j - 1];
                                 q->priority[j] = q->priority[j - 1];
@@ -49,7 +49,7 @@ namespace PriorityQueueArr {
                         }
                         cell++;
                     } else {
-                        if ( key >= q->priority[next_cell] ) {
+                        if ( key > q->priority[next_cell] ) {
                             for ( int j = ( q->tail % ( n - 1 ) ) + 1; j > q->head; j-- ) {
                                 q->data[j] = q->data[j - 1];
                                 q->priority[j] = q->priority[j - 1];

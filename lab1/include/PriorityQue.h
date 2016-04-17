@@ -47,14 +47,14 @@ namespace PriorityQue {
 
             while ( next_cell != nullptr ) {
                 if ( i == 1 ) {
-                    if ( key >= next_cell->priority ) {
+                    if ( key > next_cell->priority ) {
                         pNode->next = next_cell;
                         cell->next = pNode;
                         return;
                     }
                     cell = cell->next;
                 } else {
-                    if ( key >= next_cell->priority ) {
+                    if ( key > next_cell->priority ) {
                         pNode->next = next_cell;
                         q->pHead = pNode;
                         return;

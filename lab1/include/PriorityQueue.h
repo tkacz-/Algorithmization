@@ -67,14 +67,14 @@ private:
 
                 while ( next_cell != nullptr ) {
                     if ( i == 1 ) {
-                        if ( key >= next_cell->getPriority() ) {
+                        if ( key > next_cell->getPriority() ) {
                             pNode->setNext(next_cell);
                             cell->setNext(pNode);
                             return;
                         }
                         cell = cell->getNext();
                     } else {
-                        if ( key >= next_cell->getPriority() ) {
+                        if ( key > next_cell->getPriority() ) {
                             pNode->setNext(next_cell);
                             pHead=pNode;
                             return;
