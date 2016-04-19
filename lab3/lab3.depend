@@ -19,3 +19,17 @@
 
 1459650904 source:/home/andrei/work/github/Algorithmization/lab3/src/Item.cpp
 
+1461065046 source:d:\github\algorithmization\lab3\main.cpp
+	<iostream>
+	<iomanip>
+	<string>
+	<cstdlib>
+	<ctime>
+	<algorithm>
+	"HashMap.h"
+
+1461064821 d:\github\algorithmization\lab3\include\hashmap.h
+	<iostream>
+	<iomanip>
+	<string>
+

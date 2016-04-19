@@ -29,43 +29,37 @@ public:
         delete[] table;
     }
 
-    void put( int key, T value ) {
+    void put( std::string key, T value ) {
         int hashCode = hash( key );
-        while ( table[hashCode] != nullptr && table[hashCode]->getKey() != key ) {
-            hashCode = hash( key + 1 );
-        }
 
         Node *temp = new Node(key, value);
         if ( table[hashCode] != nullptr ) {
-            table[hashCode]->setNext(temp);
+            temp->setNext(table[hashCode]);
+            table[hashCode] = temp;
         } else {
             table[hashCode] = temp;
         }
     }
 
-    T find( int key, T value ) {
+    T find( std::string key, T value ) {
         int hashCode = hash( key );
         bool isFound = false;
         Node* temp = table[hashCode];
-        while ( temp != nullptr && !isFound ) {
-            if ( temp->getValue() == value) {
+        while ( temp != nullptr ) {
+            if ( temp->getValue() == value ) {
                 isFound = true;
                 break;
             }
             temp = temp->getNext();
         }
         if ( isFound )
-            return temp->getValue();
-        else
+            return "Found!";
+        if ( isFound == false )
             return "Not Found!";
     }
 
-    void show( int key ) {
-        int hashCode = hash( key );
-        while ( table[hashCode] != nullptr && table[hashCode]->getKey() != key ) {
-            hashCode = hash( key + 1 );
-        }
-        std::cout << std::setw(10);
+    void show( int hashCode ) {
+        std::cout << std::setw(20);
         if ( table[hashCode] == nullptr ) {
             std::cout << "" << std::endl;
         } else {
@@ -80,11 +74,11 @@ public:
 private:
     class Node {
     private:
-        int key_;
+        std::string key_;
         T value_;
         Node* next_;
     public:
-        Node(const int& key, const T& value):
+        Node(const std::string& key, const T& value):
             key_(key),
             value_(value),
             next_(nullptr)
@@ -93,7 +87,7 @@ private:
         T getValue() const {
             return value_;
         }
-        int getKey() const {
+        std::string getKey() const {
             return key_;
         }
         Node* getNext() const {
@@ -109,8 +103,9 @@ private:
 
     Node **table;
 
-    int hash( int key ) {
-        return key % TABLE_SIZE;
+    int hash( std::string key ) {
+        int hashCode = accumulate( key.begin(), key.end(), 0);
+        return (hashCode % TABLE_SIZE);
     }
 };
 

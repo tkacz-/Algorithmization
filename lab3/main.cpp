@@ -10,12 +10,13 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 
 #include "HashMap.h"
 
 using namespace std;
 
-static const int m = 10000;
+static const int m = 300;
 static const char alphanum[] =
 "0123456789"
 "!@#$%^&*"
@@ -36,50 +37,60 @@ int main()
 
     cout << "Generated:" << endl
             << setw(7) << "Key"
-            << setw(10) << "Value" << endl;
+            << setw(20) << "Value" << endl;
     HashMap<string> hashMap;
-    int key;
+    string key;
     string str;
     srand(time(NULL));
     for ( int i = 0; i < n; i++ ) {
-        key = rand() % 26;
+        key += genRandom();
         str += genRandom();
-        cout << setw(7) << key << setw(10) << str << endl;
 
+        cout << setw(7) << key << setw(20) << str << endl;
         hashMap.put(key, str);
+
+        if ( key.length() >= 6 )
+            key = "";
     }
 
-    cout << "In hash map: " << endl
-            << setw(7) << "Key"
-            << setw(10) << "Value" << endl;
+    cout << endl << "In hash map: " << endl
+            << setw(7) << "Segment"
+            << setw(20) << "Value" << endl;
     for ( int i = 0; i < 27; i++ ) {
-        cout << setw(7) << i;
-
+        cout << setw( 7 ) << i;
         hashMap.show( i );
     }
 
+    str = "";
+    key = "";
     HashMap<string> hashMap1;
     string arr[m];
-    int index = m / 2;
+    string search_key;
     string elem;
     srand(time(NULL));
     for ( int i = 0; i < m; i++ ) {
-        key = rand() % 26;
+        key += genRandom();
         str += genRandom();
 
-        if ( i == m / 2 )
+        if ( i == m / 2 ) {
             elem = str;
+            search_key = key;
+        }
         arr[i] = str;
-        hashMap.put(key, str);
+        hashMap1.put(key, str);
+
+        if ( key.length() >= 6 )
+            key = "";
     }
 
     clock_t timeBegin, timeEnd;
     double delta;
     timeBegin = clock();
-    str = hashMap.find( index , elem );
+    str = hashMap1.find( search_key, elem );
     timeEnd = clock();
     delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
-    cout << endl << "Time for searching in hash table: " << delta << endl;
+    cout << endl << "Searching: " << str << endl;
+    cout << "Time for searching in hash table: " << delta << endl;
 
     timeBegin = clock();
     for ( int i = 0; i < m; i++ ) {
