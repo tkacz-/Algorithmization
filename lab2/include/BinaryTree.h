@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-
-
 namespace BinaryTree {
     struct Node {
         int data;
@@ -54,15 +52,21 @@ namespace BinaryTree {
 
     void preOrderTraversal( Node* tree ) {
         Stack stack;
+        int count = 0;
+        bool left = false;
         while ( stack.isEmpty() != 1 || tree != nullptr ) {
             if ( tree != nullptr ) {
-                std::cout << std::setw(7) << tree->data << std::endl;
+                for ( int i = 0; i < count; i++ )
+                    std::cout << "|";
+                std::cout << tree->data << std::endl;
                 if ( tree->right ) {
                     stack.push( tree->right );
                 }
                 tree = tree->left;
+                count++;
             } else {
                 tree = stack.pop();
+                count++;
             }
         }
     }
@@ -79,7 +83,10 @@ namespace BinaryTree {
                 if ( tree->right ) {
                     stack.push( tree->right );
                 }
-                tree = tree->left;
+                if ( data < tree->data )
+                    tree = tree->left;
+                else
+                    tree = nullptr;
             } else {
                 tree = stack.pop();
             }
@@ -97,7 +104,7 @@ namespace BinaryTree {
         } else {
             if ( data > ( *root )->data )
                 push( data, &( ( *root )->right ) );
-            else
+            else if ( data <= ( *root )->data )
                 push( data, &( ( *root )->left ) );
         }
     }
@@ -126,7 +133,5 @@ namespace BinaryTree {
         }
     }
 };
-
-
 
 #endif // BINARYTREE_H_INCLUDED
