@@ -102,9 +102,9 @@ namespace BinaryTree {
             ( *root )->left = ( *root )->right = nullptr;
             return;
         } else {
-            if ( data > ( *root )->data )
+            if ( data >= ( *root )->data )
                 push( data, &( ( *root )->right ) );
-            else if ( data <= ( *root )->data )
+            else if ( data < ( *root )->data )
                 push( data, &( ( *root )->left ) );
         }
     }

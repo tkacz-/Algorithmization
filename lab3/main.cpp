@@ -16,8 +16,9 @@
 
 using namespace std;
 
-static const int m = 300;
-static const char alphanum[] =
+const int m = 20000;
+const int tableSize = 27;
+const char alphanum[] =
 "0123456789"
 "!@#$%^&*"
 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -29,6 +30,14 @@ char genRandom() {
     return alphanum[rand() % stringLength];
 }
 
+string generate() {
+    string str;
+    for (int i = 0; i < tableSize; i++) {
+        str += genRandom();
+    }
+    return str;
+}
+
 int main()
 {
     int n;
@@ -36,25 +45,29 @@ int main()
     cin >> n;
 
     cout << "Generated:" << endl
-            << setw(7) << "Key"
-            << setw(20) << "Value" << endl;
+            << setw(27) << "Key"
+            << setw(7) << "Value"
+            << setw(11) << "Segment" << endl;
     HashMap<string> hashMap;
     string key;
     string str;
+    int sum = 0;
     srand(time(NULL));
     for ( int i = 0; i < n; i++ ) {
-        key += genRandom();
+        key = generate();
         str += genRandom();
 
-        cout << setw(7) << key << setw(20) << str << endl;
+        sum = accumulate( key.begin(), key.end(), 0);
+        sum %= tableSize;
+        cout << setw(27) << key << setw(7) << str << setw(11) << sum << endl;
         hashMap.put(key, str);
 
-        if ( key.length() >= 6 )
-            key = "";
+        key = "";
+        str = "";
     }
 
     cout << endl << "In hash map: " << endl
-            << setw(7) << "Segment"
+            << setw(3) << "Segment"
             << setw(20) << "Value" << endl;
     for ( int i = 0; i < 27; i++ ) {
         cout << setw( 7 ) << i;
@@ -69,7 +82,7 @@ int main()
     string elem;
     srand(time(NULL));
     for ( int i = 0; i < m; i++ ) {
-        key += genRandom();
+        key = generate();
         str += genRandom();
 
         if ( i == m / 2 ) {
@@ -79,8 +92,8 @@ int main()
         arr[i] = str;
         hashMap1.put(key, str);
 
-        if ( key.length() >= 6 )
-            key = "";
+        key = "";
+        str = "";
     }
 
     clock_t timeBegin, timeEnd;
@@ -100,6 +113,5 @@ int main()
     timeEnd = clock();
     delta = (double) ( timeEnd - timeBegin ) / CLOCKS_PER_SEC;
     cout << endl << "Time for searching in array: " << delta << endl;
-
     return 0;
 }
